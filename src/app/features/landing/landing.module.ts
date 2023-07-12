@@ -3,16 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { LandingRoutingModule } from './landing-routing.module';
 import { NavComponent } from './components/nav/nav.component';
-import { AlgoComponent } from './components/algo/algo.component';
+import { LayoutComponent } from './components/layout/layout.component';
+import { HomeSectionComponent } from './components/home-section/home-section.component';
+import { LandingComponent } from './pages/landing/landing.component';
 
 
 @NgModule({
   declarations: [
     NavComponent,
-    AlgoComponent,
-  ],
-  exports:[
-    // NavComponent,
+    LandingComponent,
+    LayoutComponent,
+    HomeSectionComponent,
   ],
   imports: [
     CommonModule,
