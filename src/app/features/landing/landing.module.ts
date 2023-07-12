@@ -7,6 +7,9 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { HomeSectionComponent } from './components/home-section/home-section.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { AboutSectionComponent } from './components/about-section/about-section.component';
+import { ContactSectionComponent } from './components/contact-section/contact-section.component';
+import { AuthModule } from '../auth/auth.module';
 
 
 @NgModule({
@@ -15,11 +18,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
     LandingComponent,
     LayoutComponent,
     HomeSectionComponent,
+    AboutSectionComponent,
+    ContactSectionComponent,
   ],
   imports: [
     CommonModule,
     LandingRoutingModule,
     SharedModule,
+    AuthModule,
   ]
 })
 export class LandingModule { }

@@ -11,7 +11,7 @@
     <div class="carousel-inner">
         <div *ngFor="let pic of images;let i=index; first as isFirst">
             <div [ngClass]="isFirst ? 'carousel-item active' : 'carousel-item' ">
-                <img src={{pic.image}} class="d-block w-100 carousel-pic" alt="..." style="height: 93vh;">
+                <img src={{pic.image}} class="d-block w-100 carousel-pic" alt="..." style="height: 100vh;">
             </div>                                     
         </div>
     </div>
