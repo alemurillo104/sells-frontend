@@ -1,1 +1,16 @@
-<p>product-list works!</p>
+<div style="margin-left: 1rem; margin-right: 1rem; margin-top: 5rem;">
+
+    <div class="row">
+        <h3>Product list</h3>
+    </div>
+    <div class="row">
+        <app-card
+        *ngFor="let product of products"
+        class="col col-sm-12 col-md-6 col-lg-4 col-xl-3"
+        [title]="product.title"
+        [subtitle]="product.description"
+        [image]="product.images[0]"
+        ></app-card> 
+    </div>
+    
+</div>

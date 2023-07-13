@@ -10,14 +10,12 @@ import { Auth } from '../models/auth.model';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService implements OnInit {
+export class AuthService{
 
   private auth = new BehaviorSubject<Auth | null>(null);
   auth$ = this.auth.asObservable();
 
   constructor(private http: HttpClient, private tokenService: TokenService) {}
-
-  ngOnInit(): void {}
 
   login(username: string, password: string) {
     return this.http
