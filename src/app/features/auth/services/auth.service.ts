@@ -5,54 +5,49 @@ import { User } from '../models/user.model';
 import { TokenService } from './token.service';
 import { tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
+import { Auth } from '../models/auth.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService implements OnInit {
 
-  private user = new BehaviorSubject<User | null>(null);
-  user$ = this.user.asObservable();
+  private auth = new BehaviorSubject<Auth | null>(null);
+  auth$ = this.auth.asObservable();
 
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   ngOnInit(): void {}
-
-  getCurrentUser(){
-    const token = this.tokenService.getToken();
-    if (token) {
-      this.getProfile();
-      // this.getProfile().suscribe();
-    }
-  }
 
   login(username: string, password: string) {
     return this.http
       .post<User>('https://dummyjson.com/auth/login', {
         username,
         password,
-        // username: 'atuny0',
-        // password: '9uQFF1Lh',
       })
       .pipe(
         tap(
           (response) => this.tokenService.saveToken(response.token),
         ),
+        tap(
+          (response) => this.auth.next(response)
+        )
       );
-    // })
-    // .subscribe((res) => {
-    //   this.user = res;
-    //   console.log(res);
-    // });
   }
 
-  getProfile(){
-    // return this.http.get()
+  hasToken(){
+    return this.tokenService.getToken() !== null;
+  }
+
+  isAuthenticated(){
+    const token = this.tokenService.getToken();
+    if (token) {
+      this.auth.next({token});
+    }
   }
 
   logOut(){
     this.tokenService.removeToken();
-    this.user.next(null);
+    this.auth.next(null);
   }
-
 }

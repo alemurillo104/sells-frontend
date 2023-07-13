@@ -17,8 +17,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#section2"> About Us</a>
                 </li>
-                    <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="#section3"> Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <a *ngIf="!auth; else elseBlock" routerLinkActive="active" class="btn nav-link" aria-current="page" routerLink="login">Login</a>
+                    <ng-template #elseBlock>
+                        <a routerLinkActive="active" class="btn nav-link" aria-current="page" (click)="this.logOut()">LogOut</a>
+                    </ng-template>
                 </li>
             </ul>
         </div>
