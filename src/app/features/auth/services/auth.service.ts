@@ -6,22 +6,24 @@ import { TokenService } from './token.service';
 import { tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { Auth } from '../models/auth.model';
+import { environment } from 'src/app/environments/environments.prod';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService implements OnInit {
+export class AuthService{
 
   private auth = new BehaviorSubject<Auth | null>(null);
   auth$ = this.auth.asObservable();
-
-  constructor(private http: HttpClient, private tokenService: TokenService) {}
-
-  ngOnInit(): void {}
+  
+  constructor(
+    private http: HttpClient, 
+    private tokenService: TokenService
+  ) {}
 
   login(username: string, password: string) {
     return this.http
-      .post<User>('https://dummyjson.com/auth/login', {
+      .post<User>(`${environment.url_api}/auth/login`, {
         username,
         password,
       })
