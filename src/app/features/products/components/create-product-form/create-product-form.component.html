@@ -1,0 +1,112 @@
+<div style="margin-left: 1rem; margin-right: 1rem; margin-top: 5rem;"></div>
+
+<form [formGroup]="empForm" (ngSubmit)="onSubmit()" class="container mt-4">
+    <h3>Crear Venta</h3>
+    <div class="row">
+        <!-- Selecciona un cliente -->
+        <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <label for="codCliente">Selecciona un cliente:</label>
+            <select id="codCliente" formControlName="codCliente" class="form-control">
+                <option *ngFor="let item of productosList" [value]="item.id">{{ item.title }}</option>
+            </select>
+        </div>
+        <!-- Selecciona un almacen -->
+        <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <label for="codAlmacen">Selecciona un almacen:</label>
+            <select id="codAlmacen" formControlName="codAlmacen" class="form-control">
+                <option *ngFor="let item of productosList" [value]="item.id">{{ item.title }}</option>
+            </select>
+        </div>
+        <!-- Selecciona una Condicion de Pago -->
+        <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <label for="codCPago">Selecciona un condicion de pago:</label>
+            <select id="codCPago" formControlName="codCPago" class="form-control">
+                <option *ngFor="let item of productosList" [value]="item.id">{{ item.title }}</option>
+            </select>
+        </div>
+        <!-- Selecciona una Condicion de Pago -->
+        <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <label for="codTEntrega">Selecciona un tipo de entrega:</label>
+            <select id="codTEntrega" formControlName="codTEntrega" class="form-control">
+                <option *ngFor="let item of productosList" [value]="item.id">{{ item.title }}</option>
+            </select>
+        </div>
+
+    </div>
+    <div class="row" style="padding-bottom: 2%;">
+        <div class="form-group col-sm-12 col-xl-4">
+            <button type="button" (click)="agregarProducto()" class="btn btn-success mt-3">
+                Añadir producto
+            </button>
+            <button type="submit" class="btn btn-primary mt-3" [disabled]="!empForm.valid"
+                style="margin-left: 10px;">Registrar Venta</button>
+        </div>
+    </div>
+
+    <div formArrayName="productos">
+        <h4 *ngIf="productos().length > 0">Productos</h4>
+        <div *ngFor="let producto of productos().controls; let prodIndex=index" class="card mb-3">
+            <div [formGroupName]="prodIndex" class="card-body" style="border: 1px solid black; padding: 10px;">
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="codProductoIndex">#</label>
+                        <p>{{prodIndex + 1}}</p>
+                    </div>
+                    <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                        <label for="productItem">Selecciona un producto:</label>
+                        <select id="productItem" formControlName="productItem" class="form-control"
+                            (change)="actualizarDetalleItem(prodIndex)">
+                            <option *ngFor="let item of productosList" [value]="item.id">{{ item.title }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-1">
+                        <label for="cantidad">Cantidad:</label>
+                        <input type="number" formControlName="cantidad" min="1" class="form-control"
+                            (change)="actualizarDetalleItem(prodIndex)" />
+                    </div>
+                    <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-2">
+                        <label for="precio">Precio:</label>
+                        <input type="number" formControlName="precio" class="form-control" />
+                    </div>
+                    <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-1">
+                        <label for="descuento">Descuento:</label>
+                        <input type="number" formControlName="descuento" class="form-control"
+                            (change)="actualizarDetalleItem(prodIndex)" />
+                    </div>
+                    <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-2">
+                        <label for="subtotal">Subtotal:</label>
+                        <input type="number" formControlName="subtotal" class="form-control" />
+                    </div>
+                    <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-2">
+                        <button (click)="removerProducto(prodIndex)" class="btn btn-danger mt-4">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-bottom: 2%;">
+        <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-2">
+            <label for="subtotalVenta">Subtotal:</label>
+        </div>
+        <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-1">
+            <input type="number" id="subtotalVenta" formControlName="subtotalVenta" class="form-control" />
+        </div>
+    </div>
+    <div class="row" style="padding-bottom: 2%;">
+        <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-2">
+            <label for="descuento">Descuento:</label>
+        </div>
+        <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-1">
+            <input type="number" id="descuento" formControlName="descuento" class="form-control"
+                (change)="calcularSubtotalVenta()" />
+        </div>
+    </div>
+    <div class="row" style="padding-bottom: 2%;">
+        <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-2">
+            <label for="total">Total:</label>
+        </div>
+        <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-1">
+            <input type="number" id="total" formControlName="total" class="form-control" />
+        </div>
+    </div>
+</form>
