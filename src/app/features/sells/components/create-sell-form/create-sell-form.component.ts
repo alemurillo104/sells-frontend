@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { ProductService } from '../../services/product.service';
-import { Product } from '../../models/product.model';
-import { SellsService } from '../../services/sells.service';
+import { Product } from 'src/app/features/products/models/product.model';
+import { ProductService } from 'src/app/features/products/services/product.service';
+import { SellsService } from 'src/app/features/products/services/sells.service';
 
 @Component({
-  selector: 'app-create-product-form',
-  templateUrl: './create-product-form.component.html',
-  styleUrls: ['./create-product-form.component.css']
+  selector: 'app-create-sell-form',
+  templateUrl: './create-sell-form.component.html',
+  styleUrls: ['./create-sell-form.component.css']
 })
-export class CreateProductFormComponent implements OnInit {
+export class CreateSellFormComponent implements OnInit {
   empForm!: FormGroup;
   productosList: Product[] = [];
 

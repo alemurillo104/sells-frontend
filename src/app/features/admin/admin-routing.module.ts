@@ -7,13 +7,13 @@ import { LayoutComponent } from './components/layout/layout.component';
 const routes: Routes = [
   {
     path: '',
-    canActivate: [ AuthGuard ],
+    canActivate: [AuthGuard],
     component: LayoutComponent,
-    children:[
+    children: [
       {
         path: '',
         redirectTo: 'home',
-        pathMatch:'full',
+        pathMatch: 'full',
       },
       {
         path: 'home',
@@ -22,6 +22,10 @@ const routes: Routes = [
       {
         path: 'products',
         loadChildren: () => import('../products/products.module').then((m) => m.ProductsModule)
+      },
+      {
+        path: 'sells',
+        loadChildren: () => import('../sells/sells.module').then((m) => m.SellsModule)
       }
     ]
   }

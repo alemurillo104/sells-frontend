@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ProductsRoutingModule } from './products-routing.module';
-import { ProductListComponent } from './components/product-list/product-list.component';
+import { SellsRoutingModule } from './sells-routing.module';
+import { CreateSellFormComponent } from './components/create-sell-form/create-sell-form.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+
 
 @NgModule({
   declarations: [
-    ProductListComponent,
+    CreateSellFormComponent,
   ],
   imports: [
     CommonModule,
-    ProductsRoutingModule,
+    SellsRoutingModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
   ]
 })
-export class ProductsModule { }
+export class SellsModule { }
