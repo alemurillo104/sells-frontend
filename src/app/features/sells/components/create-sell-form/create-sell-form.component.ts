@@ -1,8 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Client } from 'src/app/features/products/models/client.model';
+import { DeliveryType } from 'src/app/features/products/models/delivery_type.model';
+import { PaymentCondition } from 'src/app/features/products/models/payment_condition.model';
 import { Product } from 'src/app/features/products/models/product.model';
+import { Store } from 'src/app/features/products/models/store.model';
+import { ClientService } from 'src/app/features/products/services/client.service';
+import { DeliveryTypeService } from 'src/app/features/products/services/delivery-type.service';
+import { PaymentConditionService } from 'src/app/features/products/services/payment-condition.service';
 import { ProductService } from 'src/app/features/products/services/product.service';
 import { SellsService } from 'src/app/features/products/services/sells.service';
+import { StoreService } from 'src/app/features/products/services/store.service';
 
 @Component({
   selector: 'app-create-sell-form',
@@ -13,11 +21,19 @@ export class CreateSellFormComponent implements OnInit {
   empForm!: FormGroup;
   productosList: Product[] = [];
 
+  clientesList: Client[] = [];
+  almacenesList: Store[] = [];
+  condPagosList: PaymentCondition[] = [];
+  tiposDeliveryList: DeliveryType[] = [];
 
   constructor(
     private fb: FormBuilder,
     private productosService: ProductService,
     private sellService: SellsService,
+    private storeService: StoreService,
+    private paymentConditionService: PaymentConditionService,
+    private clientService: ClientService,
+    private deliveryTypeService: DeliveryTypeService,
   ) { }
 
   ngOnInit() {
@@ -38,6 +54,22 @@ export class CreateSellFormComponent implements OnInit {
   loadData(): void {
     this.productosService.getAll().subscribe((result) => {
       this.productosList = result.products;
+    });
+
+    this.storeService.getStores().subscribe(res => {
+      this.almacenesList = res.stores;
+    });
+
+    this.clientService.getClients().subscribe(res => {
+      this.clientesList = res.clients;
+    });
+
+    this.paymentConditionService.getPaymentConditions().subscribe(res => {
+      this.condPagosList = res.paymentConditions;
+    });
+
+    this.deliveryTypeService.getDeliveryTypes().subscribe(res => {
+      this.tiposDeliveryList = res.deliveryTypes;
     });
   }
 
