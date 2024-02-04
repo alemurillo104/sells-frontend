@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { Client } from 'src/app/features/products/models/client.model';
+import { Client } from 'src/app/features/clients/models/client.model';
+import { ClientService } from 'src/app/features/clients/services/client.service';
 import { DeliveryType } from 'src/app/features/products/models/delivery_type.model';
 import { PaymentCondition } from 'src/app/features/products/models/payment_condition.model';
 import { Product } from 'src/app/features/products/models/product.model';
 import { Store } from 'src/app/features/products/models/store.model';
-import { ClientService } from 'src/app/features/products/services/client.service';
 import { DeliveryTypeService } from 'src/app/features/products/services/delivery-type.service';
 import { PaymentConditionService } from 'src/app/features/products/services/payment-condition.service';
 import { ProductService } from 'src/app/features/products/services/product.service';

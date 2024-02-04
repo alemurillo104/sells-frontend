@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProductListComponent } from './components/product-list/product-list.component';
-import { CreateProductComponent } from './components/create-product/create-product.component';
+import { ClientsListComponent } from './components/clients-list/clients-list.component';
+import { CreateClientComponent } from './components/create-client/create-client.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ProductListComponent,
+    component: ClientsListComponent,
   },
   {
     path: 'create',
-    component: CreateProductComponent,
+    component: CreateClientComponent,
   },
   {
     path: '**',
@@ -22,4 +22,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ProductsRoutingModule { }
+export class ClientsRoutingModule { }

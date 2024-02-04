@@ -1,5 +1,5 @@
-import { Client } from "./client.model";
+// import { Client } from "./client.model";
 
-export interface ClientResponse {
-    clients: Client[]
-}
+// export interface ClientResponse {
+//     clients: Client[]
+// }

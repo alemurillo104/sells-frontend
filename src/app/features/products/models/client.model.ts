@@ -1,5 +1,5 @@
 
-export interface Client {
-    codigo: number,
-    nombre: string,
-}
+// export interface Client {
+//     codigo: number,
+//     nombre: string,
+// }
