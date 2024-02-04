@@ -32,7 +32,7 @@ export class CreateClientComponent {
   }
 
   loadClients() {
-    this.service.clients$.subscribe(res => this.codigo = `C00${res?.length || 0 + 1}`)
+    this.service.getClients().subscribe(res => this.codigo = `C00${(res?.length || 0) + 1}`)
   }
 
   async onSubmit() {

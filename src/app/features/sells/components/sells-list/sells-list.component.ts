@@ -33,9 +33,9 @@ export class SellsListComponent {
           console.log("subtotal", subtotalI)
           this.sellsDetailsList[i].subtotal = subtotalI;
         }
+        this.totalVenta = this.sellsDetailsList.reduce((total, sellDetail) => total + ((sellDetail.precio_unitario * sellDetail.cantidad) - sellDetail.descuento), 0);
+        console.log("total venta ; ",this.totalVenta)
       }
     )
-    this.totalVenta = this.sellsDetailsList.reduce((total, sellDetail) => total + sellDetail.subtotal, 0) - descuento;
-
   }
 }

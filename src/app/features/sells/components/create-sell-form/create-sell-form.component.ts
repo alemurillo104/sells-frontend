@@ -58,8 +58,8 @@ export class CreateSellFormComponent implements OnInit {
 
   loadData(): void {
 
-    this.sellService.sells$.subscribe(res => this.codigo = `S00${res?.length || 0 + 1}`)
-
+    this.sellService.getSells().subscribe(res => this.codigo = `S00${(res?.length || 0) + 1}`)
+    
     this.productosService.getAll().subscribe((result) => {
       this.productosList = result.products;
     });
