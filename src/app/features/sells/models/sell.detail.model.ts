@@ -1,7 +1,9 @@
 export interface SellDetail {
-    productItem: number,
+    codigo_venta: string,
+    codigo_producto: string,
+    nombre_producto: string,
     cantidad: number,
-    precio: number,
+    precio_unitario: number,
     descuento: number,
     subtotal: number,
 }

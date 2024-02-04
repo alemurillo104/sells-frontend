@@ -4,6 +4,7 @@ import { Sell } from '../models/sell.model';
 import { BehaviorSubject, tap } from 'rxjs';
 import { SellRequest } from '../models/sell.request.model';
 import { environment } from 'src/app/environments/environments';
+import { SellDetail } from '../models/sell.detail.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,8 @@ export class SellsService {
 
   private sells = new BehaviorSubject<Sell[] | null>(null);
   sells$ = this.sells.asObservable();
+  private sellsDetails = new BehaviorSubject<SellDetail[] | null>(null);
+  sellsDetails$ = this.sells.asObservable();
 
   private sell = new BehaviorSubject<Sell | null>(null);
   sell$ = this.sell.asObservable();
@@ -37,6 +40,15 @@ export class SellsService {
     .pipe(
       tap(
         response => this.sells.next(response)
+      )
+    )
+  }
+
+  getSellDetail(sellId: string){
+    return this.http.get<SellDetail[]>(`${environment.url_api}/api/ventas/${sellId}/detalles`)
+    .pipe(
+      tap(
+        response => this.sellsDetails.next(response)
       )
     )
   }
