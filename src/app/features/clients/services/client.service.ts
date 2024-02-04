@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
 import { Client } from '../models/client.model';
@@ -25,5 +25,15 @@ export class ClientService {
       )
   }
 
+  createClient(client: Client) {
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+    return this.http.post(`${environment.url_api}/api/clientes`, JSON.stringify(client), { headers: headers })
+      .pipe(
+        tap(
+          response => console.log(response)
+        )
+      )
+  }
 
 }

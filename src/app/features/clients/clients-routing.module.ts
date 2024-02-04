@@ -5,7 +5,7 @@ import { CreateClientComponent } from './components/create-client/create-client.
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'list',
     component: ClientsListComponent,
   },
   {
@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'list',
   },
 ];
 
