@@ -32,7 +32,7 @@ export class CreateClientComponent {
   }
 
   loadClients() {
-    this.service.clients$.subscribe(res => this.codigo = `ABC${res?.length || 0 + 1}`)
+    this.service.clients$.subscribe(res => this.codigo = `C00${res?.length || 0 + 1}`)
   }
 
   async onSubmit() {
@@ -41,7 +41,7 @@ export class CreateClientComponent {
       console.log(this.clientForm.value);
 
       var client: Client = {
-        codigo_cliente: 'A100',
+        codigo_cliente: this.codigo,
         nombre_cliente: this.clientForm.get('nombre')!.value,
         email: this.clientForm.get('email')!.value,
         numero_ci_nit: this.clientForm.get('ci')!.value,

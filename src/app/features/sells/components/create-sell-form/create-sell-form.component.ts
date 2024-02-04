@@ -9,8 +9,10 @@ import { Store } from 'src/app/features/products/models/store.model';
 import { DeliveryTypeService } from 'src/app/features/products/services/delivery-type.service';
 import { PaymentConditionService } from 'src/app/features/products/services/payment-condition.service';
 import { ProductService } from 'src/app/features/products/services/product.service';
-import { SellsService } from 'src/app/features/products/services/sells.service';
 import { StoreService } from 'src/app/features/products/services/store.service';
+import { SellsService } from '../../services/sells.service';
+import { SellDetailRequest, SellRequest } from '../../models/sell.request.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-sell-form',
@@ -25,6 +27,7 @@ export class CreateSellFormComponent implements OnInit {
   almacenesList: Store[] = [];
   condPagosList: PaymentCondition[] = [];
   tiposDeliveryList: DeliveryType[] = [];
+  codigo: string = 'ABC';
 
   constructor(
     private fb: FormBuilder,
@@ -34,15 +37,17 @@ export class CreateSellFormComponent implements OnInit {
     private paymentConditionService: PaymentConditionService,
     private clientService: ClientService,
     private deliveryTypeService: DeliveryTypeService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
     this.empForm = this.fb.group({
       descuento: ['0', [Validators.required, Validators.max(0.5)]],
-      codCliente: ['', Validators.required],
-      codAlmacen: ['', Validators.required],
-      codCPago: ['', Validators.required],
-      codTEntrega: ['', Validators.required],
+      codigo_cliente: ['', Validators.required],
+      codigo_almacen: ['', Validators.required],
+      codigo_condicion_pago: ['', Validators.required],
+      tipo_entrega: ['', Validators.required],
+      tipo_venta : [''],
       subtotalVenta: ['0', Validators.required],
       total: ['0', Validators.required],
       productos: this.fb.array([], [this.atLeastOne])
@@ -52,6 +57,9 @@ export class CreateSellFormComponent implements OnInit {
   }
 
   loadData(): void {
+
+    this.sellService.sells$.subscribe(res => this.codigo = `S00${res?.length || 0 + 1}`)
+
     this.productosService.getAll().subscribe((result) => {
       this.productosList = result.products;
     });
@@ -81,9 +89,10 @@ export class CreateSellFormComponent implements OnInit {
 
   nuevoProducto(): FormGroup {
     return this.fb.group({
-      productItem: '',
+      codigo_producto: '',
+      nombre_producto: '',
+      precio_unitario: '',
       cantidad: '1',
-      precio: '',
       descuento: '0',
       subtotal: '0',
     });
@@ -107,7 +116,41 @@ export class CreateSellFormComponent implements OnInit {
       console.log('submiting');
       console.log(this.empForm.value);
 
-      this.sellService.saveSell(this.empForm.value);
+      var productos = this.empForm.get('productos') as FormArray;
+      var detailsRequest : SellDetailRequest[] = [];
+      
+      for (let item of productos.controls) {
+        
+        var detail : SellDetailRequest = {
+          codigo_venta: this.codigo,
+          codigo_producto: item.get('codigo_producto')?.value,
+          nombre_producto: item.get('nombre_producto')?.value,
+          precio_unitario: item.get('precio_unitario')?.value,
+          cantidad: item.get('cantidad')?.value,
+          descuento: item.get('descuento')?.value,
+        }; 
+        detailsRequest.push(detail);
+      }
+
+      var sellRequest : SellRequest = {
+        codigo_venta: this.codigo,
+        codigo_cliente: this.empForm.get('codigo_cliente')?.value,
+        descuento: this.empForm.get('descuento')?.value,
+        codigo_almacen: this.empForm.get('codigo_almacen')?.value,
+        codigo_condicion_pago: this.empForm.get('codigo_condicion_pago')?.value,
+        tipo_venta: `Venta de ${ detailsRequest.length } productos`,
+        tipo_entrega: this.empForm.get('tipo_entrega')?.value,
+        productos: detailsRequest,
+      };
+
+      this.sellService.saveSell(sellRequest).subscribe(
+        res => {
+          console.log(res);
+          if (res) {
+            this.router.navigate(['/admin/sells/']);
+          }
+        }
+      );
     } else {
       console.log('invalid form');
     }
@@ -125,11 +168,13 @@ export class CreateSellFormComponent implements OnInit {
 
   actualizarDetalleItem(prodIndex: number): void {
     const productosArray = this.empForm.get('productos') as FormArray;
-    const selectedProductId = productosArray.at(prodIndex).get('productItem')?.value;
+    const selectedProductId = productosArray.at(prodIndex).get('codigo_producto')?.value;
+    const product = this.productosList.find( (product) => product.id == selectedProductId);
+    this.productsData(prodIndex).get('nombre_producto')?.setValue(product?.title);
     const cantidad = productosArray.at(prodIndex).get('cantidad')?.value;
     const descuento = productosArray.at(prodIndex).get('descuento')?.value;
     const precio = this.calcularPrecio(selectedProductId, cantidad);
-    this.productsData(prodIndex).get('precio')?.setValue(precio);
+    this.productsData(prodIndex).get('precio_unitario')?.setValue(precio);
     const subtotal = this.calcularSubtotal(precio, cantidad, descuento);
     this.productsData(prodIndex).get('subtotal')?.setValue(subtotal);
     this.calcularSubtotalVenta();
@@ -138,7 +183,7 @@ export class CreateSellFormComponent implements OnInit {
   calcularSubtotalVenta(): void {
     const productosArray = this.empForm.get('productos') as FormArray;
     const subtotal = productosArray.controls.reduce((total, productControl, index) => {
-      const precioControl = productControl.get('precio');
+      const precioControl = productControl.get('precio_unitario');
       const cantidadControl = productControl.get('cantidad');
       const descuentoControl = productControl.get('descuento');
       return total + ((precioControl?.value || 0) * (cantidadControl?.value || 0)) - (descuentoControl?.value || 0);
@@ -152,7 +197,7 @@ export class CreateSellFormComponent implements OnInit {
 
   }
   calcularPrecio(selectedProductId: number, cantidad: number): number {
-    const selectedProduct = this.productosList.find(item => item.id == selectedProductId);
+    const selectedProduct = this.productosList.find(item => item.id == selectedProductId); 
     return selectedProduct ? selectedProduct.price : 0;
   }
   calcularSubtotal(precio: number, cantidad: number, descuento: number): number {
