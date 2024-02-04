@@ -1,5 +1,5 @@
 
 export interface Client {
-    codigo_cliente: string,
-    nombre_cliente: string,
+    codigo: number,
+    nombre: string,
 }

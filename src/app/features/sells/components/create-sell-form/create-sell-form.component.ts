@@ -57,24 +57,20 @@ export class CreateSellFormComponent implements OnInit {
     });
 
     this.storeService.getStores().subscribe(res => {
-      console.log("res", res);
-      this.almacenesList = res;
-      console.log(this.almacenesList);
+      this.almacenesList = res.stores;
     });
 
-
     this.clientService.getClients().subscribe(res => {
-      this.clientesList = res;
+      this.clientesList = res.clients;
     });
 
     this.paymentConditionService.getPaymentConditions().subscribe(res => {
-      console.log("pagos: ", res);
-      this.condPagosList = res;
+      this.condPagosList = res.paymentConditions;
     });
 
-    // this.deliveryTypeService.getDeliveryTypes().subscribe(res => {
-    //   this.tiposDeliveryList = res.deliveryTypes;
-    // });
+    this.deliveryTypeService.getDeliveryTypes().subscribe(res => {
+      this.tiposDeliveryList = res.deliveryTypes;
+    });
   }
 
 
@@ -111,7 +107,6 @@ export class CreateSellFormComponent implements OnInit {
       console.log(this.empForm.value);
 
       this.sellService.saveSell(this.empForm.value);
-      this.empForm.reset();
     } else {
       console.log('invalid form');
     }

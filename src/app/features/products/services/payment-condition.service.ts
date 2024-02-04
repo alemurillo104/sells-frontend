@@ -3,7 +3,7 @@ import { PaymentCondition } from '../models/payment_condition.model';
 import { BehaviorSubject, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { PaymentConditionResponse } from '../models/payment_condition.response.model';
-import { environment } from 'src/app/environments/environments';
+import { environment } from 'src/app/environments/environments.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +18,10 @@ export class PaymentConditionService {
   ) { }
 
   getPaymentConditions() {
-    return this.http.get<PaymentCondition[]>(`${environment.url_api}/api/condiciones_pago`)
+    return this.http.get<PaymentConditionResponse>(`${environment.url_api}/api/tiposEntregas`)
       .pipe(
         tap(
-          response => this.paymentConditions.next(response)
+          response => this.paymentConditions.next(response.paymentConditions)
         )
       )
   }
