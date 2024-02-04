@@ -1,5 +1,5 @@
 
 export interface PaymentCondition {
-    codigo: number,
-    nombre: string,
+    codigo_condicion_pago: string,
+    descripcion_condicion_pago: string,
 }

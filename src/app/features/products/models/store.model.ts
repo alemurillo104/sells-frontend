@@ -1,5 +1,5 @@
 
 export interface Store {
-    codigo: number,
-    nombre: string,
+    codigo_almacen: string,
+    nombre_almacen: string,
 }
