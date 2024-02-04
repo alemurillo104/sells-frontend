@@ -5,30 +5,30 @@
     <div class="row">
         <!-- Selecciona un cliente -->
         <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-3">
-            <label for="codCliente">Selecciona un cliente:</label>
-            <select id="codCliente" formControlName="codCliente" class="form-control">
-                <option *ngFor="let item of productosList" [value]="item.id">{{ item.title }}</option>
+            <label for="codigo_cliente">Selecciona un cliente:</label>
+            <select id="codigo_cliente" formControlName="codigo_cliente" class="form-control">
+                <option *ngFor="let item of clientesList" [value]="item.codigo_cliente">{{ item.nombre_cliente }}</option>
             </select>
         </div>
         <!-- Selecciona un almacen -->
         <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-3">
-            <label for="codAlmacen">Selecciona un almacen:</label>
-            <select id="codAlmacen" formControlName="codAlmacen" class="form-control">
-                <option *ngFor="let item of productosList" [value]="item.id">{{ item.title }}</option>
+            <label for="codigo_almacen">Selecciona un almacen:</label>
+            <select id="codigo_almacen" formControlName="codigo_almacen" class="form-control">
+                <option *ngFor="let item of almacenesList" [value]="item.codigo_almacen">{{ item.nombre_almacen }}</option>
             </select>
         </div>
         <!-- Selecciona una Condicion de Pago -->
         <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-3">
-            <label for="codCPago">Selecciona un condicion de pago:</label>
-            <select id="codCPago" formControlName="codCPago" class="form-control">
-                <option *ngFor="let item of productosList" [value]="item.id">{{ item.title }}</option>
+            <label for="codigo_condicion_pago">Selecciona un condicion de pago:</label>
+            <select id="codigo_condicion_pago" formControlName="codigo_condicion_pago" class="form-control">
+                <option *ngFor="let item of condPagosList" [value]="item.codigo_condicion_pago">{{ item.descripcion_condicion_pago }}</option>
             </select>
         </div>
         <!-- Selecciona una Condicion de Pago -->
         <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-3">
-            <label for="codTEntrega">Selecciona un tipo de entrega:</label>
-            <select id="codTEntrega" formControlName="codTEntrega" class="form-control">
-                <option *ngFor="let item of productosList" [value]="item.id">{{ item.title }}</option>
+            <label for="tipo_entrega">Selecciona un tipo de entrega:</label>
+            <select id="tipo_entrega" formControlName="tipo_entrega" class="form-control">
+                <option *ngFor="let item of condPagosList" [value]="item.codigo_condicion_pago">{{ item.descripcion_condicion_pago }}</option>
             </select>
         </div>
 
@@ -54,7 +54,7 @@
                     </div>
                     <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-3">
                         <label for="productItem">Selecciona un producto:</label>
-                        <select id="productItem" formControlName="productItem" class="form-control"
+                        <select id="productItem" formControlName="codigo_producto" class="form-control"
                             (change)="actualizarDetalleItem(prodIndex)">
                             <option *ngFor="let item of productosList" [value]="item.id">{{ item.title }}</option>
                         </select>
@@ -65,8 +65,8 @@
                             (change)="actualizarDetalleItem(prodIndex)" />
                     </div>
                     <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-2">
-                        <label for="precio">Precio:</label>
-                        <input type="number" formControlName="precio" class="form-control" />
+                        <label for="precio_unitario">Precio:</label>
+                        <input type="number" formControlName="precio_unitario" class="form-control" />
                     </div>
                     <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-1">
                         <label for="descuento">Descuento:</label>

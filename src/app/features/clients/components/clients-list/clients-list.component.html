@@ -1,0 +1,10 @@
+<div style="margin-left: 1rem; margin-right: 1rem; margin-top: 5rem;">
+    <div class="row">
+        <h3>Client list</h3>
+    </div>
+    <div class="row">
+        <app-card *ngFor="let client of this.clientsList" class="col col-sm-12 col-md-6 col-lg-4 col-xl-3"
+            [title]="client.nombre_cliente" [subtitle]="client.email"
+            image="https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg"></app-card>
+    </div>
+</div>

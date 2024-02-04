@@ -1,0 +1,31 @@
+<div style="margin-left: 1rem; margin-right: 1rem; margin-top: 5rem;"></div>
+
+<form [formGroup]="clientForm" (ngSubmit)="onSubmit()" class="container mt-4">
+    <h3>Crear Cliente</h3>
+    <div class="row">
+        <!-- Selecciona un cliente -->
+        <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <label for="nombre">Nombre:</label>
+            <input type="text" formControlName="nombre" id="nombre" class="form-control">
+        </div>
+        <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <label for="ci">CI/NIT:</label>
+            <input type="text" formControlName="ci" id="ci" class="form-control">
+        </div>
+        <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <label for="tipoDocumento">Tipo de Documento:</label>
+            <input type="text" formControlName="tipoDocumento" id="tipoDocumento" class="form-control">
+        </div>
+        <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <label for="email">Email:</label>
+            <input type="email" valid formControlName="email" id="email" class="form-control">
+        </div>
+    </div>
+    <div class="row" style="padding-bottom: 2%;">
+        <div class="form-group col-sm-12 col-xl-4">
+            <button type="submit" class="btn btn-primary mt-3" [disabled]="!clientForm.valid"
+                style="margin-left: 10px;">Registrar Cliente</button>
+        </div>
+    </div>
+
+</form>
