@@ -7,28 +7,28 @@
         <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-3">
             <label for="codCliente">Selecciona un cliente:</label>
             <select id="codCliente" formControlName="codCliente" class="form-control">
-                <option *ngFor="let item of productosList" [value]="item.id">{{ item.title }}</option>
+                <option *ngFor="let item of clientesList" [value]="item.codigo_cliente">{{ item.nombre_cliente }}</option>
             </select>
         </div>
         <!-- Selecciona un almacen -->
         <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-3">
             <label for="codAlmacen">Selecciona un almacen:</label>
             <select id="codAlmacen" formControlName="codAlmacen" class="form-control">
-                <option *ngFor="let item of productosList" [value]="item.id">{{ item.title }}</option>
+                <option *ngFor="let item of almacenesList" [value]="item.codigo_almacen">{{ item.nombre_almacen }}</option>
             </select>
         </div>
         <!-- Selecciona una Condicion de Pago -->
         <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-3">
             <label for="codCPago">Selecciona un condicion de pago:</label>
             <select id="codCPago" formControlName="codCPago" class="form-control">
-                <option *ngFor="let item of productosList" [value]="item.id">{{ item.title }}</option>
+                <option *ngFor="let item of condPagosList" [value]="item.codigo_condicion_pago">{{ item.descripcion_condicion_pago }}</option>
             </select>
         </div>
         <!-- Selecciona una Condicion de Pago -->
         <div class="form-group col col-sm-12 col-md-6 col-lg-4 col-xl-3">
             <label for="codTEntrega">Selecciona un tipo de entrega:</label>
             <select id="codTEntrega" formControlName="codTEntrega" class="form-control">
-                <option *ngFor="let item of productosList" [value]="item.id">{{ item.title }}</option>
+                <option *ngFor="let item of condPagosList" [value]="item.codigo_condicion_pago">{{ item.descripcion_condicion_pago }}</option>
             </select>
         </div>
 

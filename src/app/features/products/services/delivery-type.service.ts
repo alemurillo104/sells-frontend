@@ -18,10 +18,10 @@ export class DeliveryTypeService {
   ) { }
 
   getDeliveryTypes() {
-    return this.http.get<DeliveryTypeResponse>(`${environment.url_api}/api/tipoPagos`)
+    return this.http.get<DeliveryType[]>(`${environment.url_api}/api/tipoPagos`)
       .pipe(
         tap(
-          response => this.deliveryTypes.next(response.deliveryTypes),
+          response => this.deliveryTypes.next(response),
         )
       );
   }
