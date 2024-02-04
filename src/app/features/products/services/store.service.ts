@@ -3,7 +3,7 @@ import { Store } from '../models/store.model';
 import { BehaviorSubject, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { StoresResponse } from '../models/stores.response.model';
-import { environment } from 'src/app/environments/environments';
+import { environment } from 'src/app/environments/environments.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +17,10 @@ export class StoreService {
   ) { }
 
   getStores() {
-    return this.http.get<Store[]>(`${environment.url_api}/api/almacenes`)
+    return this.http.get<StoresResponse>(`${environment.url_api}/api/almacenes`)
       .pipe(
         tap(
-          response => this.stores.next(response),
+          response => this.stores.next(response.stores),
         )
       );
   }
