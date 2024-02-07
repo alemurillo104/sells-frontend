@@ -26,7 +26,7 @@ export class CreateClientComponent {
       nombre: ['', Validators.required],
       ci: ['', Validators.required],
       tipoDocumento: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
     });
     this.loadClients();
   }
